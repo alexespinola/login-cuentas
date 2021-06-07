@@ -1,0 +1,40 @@
+{
+    "name": "alexespinola/login-cuentas",
+    "description": "Autenticacion Oauth2 contra el sistema de cuentas",
+    "type": "library",
+    "require": {
+        "php": "^7.2.5",
+        "laravel/framework": "7.*",
+        "league/oauth2-client": "^2.2",
+        "firebase/php-jwt": "^5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "orchestra/testbench": "5.*"
+    },
+    "autoload": {
+        "psr-4":{
+            "loginCuentas\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4":{
+            "Tests\\": "tests"
+        }
+    },
+    "extra":{
+      "laravel":{
+        "providers":[
+          "loginCuentas\\LoginCuentasServiceProvider"
+        ]
+      }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Espinola",
+            "email": "alejandro.espinola@trenesargentinos.gob.ar"
+        }
+    ],
+    "minimum-stability": "stable"
+}
