@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\OAuth2\Client\Provider\GenericProvider;
 use \Firebase\JWT\JWT;
+use loginCuentas\Events\UserWasLogged;
 use Redirect;
 use Session;
 use Config;
@@ -13,6 +14,7 @@ use Config;
 
 class LoginController extends Controller {
 
+  /** constructor */
   public function __construct() {   
     $this->provider = new GenericProvider([
       'clientId'                => Config::get('loginCuentas.clientId'),    
@@ -33,21 +35,19 @@ class LoginController extends Controller {
   }
 
 
-  /** Login */
+  /** Login contra cuentas*/
   public function login(Request $request)  {   
     // Fetch the authorization URL from the provider; this returns the
     // urlAuthorize option and generates and applies any necessary parameters (e.g. state).
     $authorizationUrl = $this->provider->getAuthorizationUrl();
-
     // Get the state generated for you and store it to the session.
     Session::put('oauth2state', $this->provider->getState());
-
     // Redirect the user to the authorization URL.
     return Redirect::to($authorizationUrl);
   }
 
 
-  /** authorize */
+  /** authorize - callback de cuentas */
   public function authorize2(Request $request)  {
     // Check given state against previously stored one to mitigate CSRF attack
     if ( !$request->has('state') || ( $request->input('state') !== Session::get('oauth2state') )) {
@@ -70,7 +70,7 @@ class LoginController extends Controller {
       //autentica al usuario
       $this->authenticate($decodedToken);
       //si se autentico con exito
-      return redirect('home');
+      return redirect(Config::get('loginCuentas.urlRedirectAfterLogin'));
     } 
     catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
       // Failed to get the access token or user details.
@@ -98,8 +98,11 @@ class LoginController extends Controller {
   /** Loguea al usuario con el sistema de autentificacion de laravel */
   public function authenticate($decodedToken) {
     try {
+      // login user in laravel 
       $userID = $decodedToken->user->id;
       Auth::loginUsingId((int)$userID);
+      // Emite el evento UserWasLogged para poder realizar acciones cuando el user se logea
+      event(new UserWasLogged($userID));
     }
     catch (Exception $e) {
       dd($e->getMessage());

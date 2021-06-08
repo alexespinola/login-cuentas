@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use loginCuentas\Calculator;
 
 class TestUnitTest extends TestCase
 {
@@ -15,14 +14,4 @@ class TestUnitTest extends TestCase
     $this->assertTrue(true);
   }
 
-  /** 
-   * @test }
-   * Para comprobar que carga correctamente las clases de src
-  */
-  public function test_calculator()
-  {
-    $calculator = new Calculator();
-    $sum = $calculator->sum(7,8);
-    $this->assertSame(15, $sum);
-  }
 }
