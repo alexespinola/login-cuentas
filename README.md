@@ -10,18 +10,8 @@ Internamente se usa el protocolo de autenticación Oauth2 mediante el package ["
 - composer 
 
 #### Instalacion
-En el archivo composer.json de su aplicación agregre lo siguiente debajo de la clave "scripts";
 
-```json 
-"scripts": {...},
-"repositories": [{
-  "type": "path",
-  "url": "https://github.com/alexespinola/login-cuentas"
-  // "url": "../packages/loginCuentas"
-}]
-``` 
-
-Luego instale con composer
+Desde la terminal (dentro de su proyecto): 
 `composer require alexespinola/login-cuentas`
 
 En el archivo  `.env` de su aplicaion defina las credenciales de autenticación 
