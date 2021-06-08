@@ -5,33 +5,26 @@ Esta librería genera todas las rutas, vistas, controladores, etc, necesarios pa
 
 Internamente se usa el protocolo de autenticación Oauth2 mediante el package ["league/oauth2-client"](https://packagist.org/packages/league/oauth2-client) 
 
-### Requerimientos
-- laravel 7
+#### Requerimientos
+- laravel: ^7
 - composer 
 
-### Instalacion
+#### Instalacion
 En el archivo composer.json de su aplicación agregre lo siguiente debajo de la clave "scripts";
 
-` "scripts": {...},
-  "repositories": [{
-    "type": "path",
-    "url": "../packages/loginCuentas"
-  }]
-` 
+```json 
+"scripts": {...},
+"repositories": [{
+  "type": "path",
+  "url": "https://github.com/alexespinola/login-cuentas"
+  // "url": "../packages/loginCuentas"
+}]
+``` 
 
-##### Luego instale con composer
+Luego instale con composer
 `composer require alexespinola/login-cuentas`
 
-
-#### publicar config
-publique la config de este paquete con el siguiente comando:
-
-`php artisan vendor:publish --provider="loginCuentas\LoginCuentasServiceProvider" --tag="config"`
-
-Esto crea un archivo de configuracion en su aplicación: `config/loginCuentas.php`
-En este archivo usted puede definir la URL a donde redirigir despues del login.
-en el archivo  `.env` de su aplicaion defina las credenciales de autenticación 
-
+En el archivo  `.env` de su aplicaion defina las credenciales de autenticación 
 
 - `clientId=<clientId>`
 - `clientSecret=<clientId>` 
@@ -40,15 +33,24 @@ en el archivo  `.env` de su aplicaion defina las credenciales de autenticación
 - `urlAccessToken=https://cuenta.sofse.gob.ar/oauth2/token/`
 - `urlResourceOwnerDetails=https://cuenta.sofse.gob.ar/api/user/`
 
+#### Archivo de configuración
+publique la config de este paquete con el siguiente comando:
+
+`php artisan vendor:publish --provider="loginCuentas\LoginCuentasServiceProvider" --tag="config"`
+
+Esto crea un archivo de configuracion en su aplicación: `config/loginCuentas.php`
+En este archivo usted puede definir la URL a donde redirigir despues del login modificando el valor de la clave `'urlRedirectAfterLogin'`.
 
 #### Evento UserWasLogged 
-Es probable que que usted necesite realizar acciones cuando un usuario de loguea en su aplicacíon como por ejemplo:
+Es probable que usted necesite realizar acciones cuando un usuario se loguea en su aplicacíon como por ejemplo:
   - Guardar los permisos del usuario en una variable de sesión
   - Registrar los accesos a la aplicación
 
-Para esto el paquete <b>LoginCuentas</b> emite un evento "UserWasLogged" para que usted pueda registrar un Listener en su aplicación que realice las acciones que usted desee.
+Para esto el paquete <b>LoginCuentas</b> emite un evento <b>UserWasLogged</b> para que usted pueda registrar un Listener en su aplicación que escuche dicho evento y realice las acciones que usted desee. 
 
-1- cree el listener  `App\Listeners\afterUserLogged.php` y codifique las acciones que desee en el método <b>handle</b>. 
+##### Instruciones para implementes el Listener
+
+1- Cree el listener  `App\Listeners\afterUserLogged.php` y codifique las acciones que desee en el método <b>handle</b>. 
 NOTE que la la variable <b>$event->userID</b> contien el ID del usuario logueado.
 
 ```php
@@ -86,7 +88,7 @@ class afterUserLogged
 }
 ```
 
-Luego registre el Event y el Listener en el archivos `App\Providers\EventServiceProvider.php` dentro del array `protected $listen`:
+2- registre el Event y el Listener en el archivos `App\Providers\EventServiceProvider.php` dentro del array `protected $listen`:
 
 ```php
 use loginCuentas\Events\UserWasLogged;
