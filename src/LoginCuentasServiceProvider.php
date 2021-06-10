@@ -10,6 +10,7 @@ class LoginCuentasServiceProvider extends ServiceProvider
   public function register()
   {
     $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'loginCuentas');
+    $this->mergeConfigFrom(__DIR__.'/../config/authCredentials.php', 'loginCuentas');
     $this->mergeConfigFrom(__DIR__.'/../config/publicKeyCuentas.php', 'loginCuentas');
   }
 

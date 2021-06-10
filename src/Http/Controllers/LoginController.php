@@ -40,7 +40,7 @@ class LoginController extends Controller {
 
 
   /** authorize - callback de cuentas */
-  public function authorize2(Request $request)  {
+  public function authorize2(Request $request) {
     // Check given state against previously stored one to mitigate CSRF attack
     if ( !$request->has('state') || ( $request->input('state') !== Session::get('oauth2state') )) {
       Session::flush('oauth2state');

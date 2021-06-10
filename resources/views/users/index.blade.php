@@ -52,7 +52,8 @@
           @endif
           <td>
             @if ($item->sync)
-              <a href="#" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Ver</a>
+              <a href="{{url(Config::get('loginCuentas.urlShowUser'), $item->oauth_id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Ver</a>
+              <a href="{{url(Config::get('loginCuentas.urlEditUser'), $item->oauth_id).'/edit'}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i> Editar</a>
             @else
               <a href="{{url('users-sync')}}?estado=enCuentas&item={{serialize($item)}}" class="btn btn-primary btn-xs" title="sincronizar con cuentas"> Sync </a>
             @endif
