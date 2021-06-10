@@ -4,8 +4,8 @@ namespace loginCuentas\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use League\OAuth2\Client\Provider\GenericProvider;
 use \Firebase\JWT\JWT;
+use loginCuentas\Helpers\OAuth2CuentasHelper;
 use loginCuentas\Events\UserWasLogged;
 use Redirect;
 use Session;
@@ -16,15 +16,7 @@ class LoginController extends Controller {
 
   /** constructor */
   public function __construct() {   
-    $this->provider = new GenericProvider([
-      'clientId'                => Config::get('loginCuentas.clientId'),    
-      'clientSecret'            => Config::get('loginCuentas.clientSecret'),
-      'redirectUri'             => Config::get('loginCuentas.redirectUri'),
-      'urlAuthorize'            => Config::get('loginCuentas.urlAuthorize'),
-      'urlAccessToken'          => Config::get('loginCuentas.urlAccessToken'),
-      'urlResourceOwnerDetails' => Config::get('loginCuentas.urlResourceOwnerDetails'),
-      'verify'                  => Config::get('loginCuentas.verify')
-    ]);
+    $this->provider = OAuth2CuentasHelper::get_provider();
   }
 
 
