@@ -1,4 +1,4 @@
-### ![img](img/logoTrenesArgentinos.png)  - LoginCuentas 
+### ![img](img/logoTrenesArgentinos.png)   LoginCuentas 
 
 
 <b>loginCuentas</b> es una librería que le permite integrar la autenticación de Laravel al sistema de cuentas de Trenes Argentinos.
