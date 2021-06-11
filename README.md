@@ -1,4 +1,6 @@
-### LoginCuentas
+### ![img](img/logoTrenesArgentinos.png)  - LoginCuentas 
+
+
 <b>loginCuentas</b> es una librería que le permite integrar la autenticación de Laravel al sistema de cuentas de Trenes Argentinos.
 
 Esta librería genera todas las rutas, vistas, controladores, etc, necesarios para el proceso de autenticación, por lo tanto usted no debe usar el comando que provee Laravel `php artisan make:auth`.
@@ -10,11 +12,12 @@ Ademas de resolver el proceso de autenticación, esta librería provee:
 Internamente usa el protocolo de autenticación Oauth2 mediante el package ["league/oauth2-client"](https://packagist.org/packages/league/oauth2-client) 
 
 #### Requerimientos
+- PHP: ^7.2
 - laravel: ^7
 - composer 
 - En la DB de su aplicación debe existir la tabla <b>users</b> con los campos `id` , `name` y `email` (Laravel al incluye por defecto y se genera al ejecutar el comando `php artisan migrate`)
 
-#### Instalacion
+#### Instalación
 
 `composer require alexespinola/login-cuentas`
 
@@ -148,7 +151,7 @@ Si usted quiere modificar las vistas que provee este paquete debe puplicarlas co
 Esto crea una carpeta con todas las vistas en su aplicación en `resources/views/vendor/loginCuentas`
 
 ##### Las rutas y vista de usuarios
-La libreria provee tres rutas para la gestion de usuarios
+La libreria <b>loginCuentas</b> provee tres rutas para la gestión de usuarios
 - `GET /users` - Muestra el listado de usuarios (como se muestra en la imagen de abajo).
 - `POST /users` - Para la creación de usuarios.
 - `GET /users-sync` - Para sincronizar los usuarios de cuentas con su aplicación o viseversa. 
@@ -168,3 +171,11 @@ Es posible que usted quiera embeber la vista de usuarios en el template `app.bal
   #@extends('loginCuentas::template')
   @extends('layouts.app')
 ```
+
+Los botones "Ver" y "Editar" por defecto redirecionan a:
+- Ver: `GET /users/{id}`
+- Editar: `GET /users/{id}/edit` 
+
+Usted puede cambiar este comportamiento modificando en el archivo de configuración `config/loginCuentas.php` el valor de las siguientes variables: 
+- La URL para mostrar la vista SHOW de usuarios `urlShowUser`.
+- La URL para mostrar la vista EDIT de usuarios `urlEditUser`.
