@@ -13,7 +13,7 @@ Route::group(['middleware' => ['web']], function()
   Route::get('/authorize', [LoginController::class, 'authorize2']);
 });
 
-Route::group(['middleware' => ['web', 'auth']], function() 
+Route::group(['middleware' => ['web', 'auth', 'RefreshToken']], function() 
 {
   Route::get('/users', [UsersController::class, 'index']);
   Route::post('/users', [UsersController::class, 'store']);

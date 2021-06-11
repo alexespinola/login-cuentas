@@ -78,7 +78,7 @@ class LoginController extends Controller {
       $key = Config::get('loginCuentas.publicKey');
       JWT::$leeway = 90;
       $decoded = JWT::decode($token, $key, ['RS256']);
-      session(['jwtToken' => json_encode($decoded, JSON_PRETTY_PRINT)]);
+      session(['decodedToken' => json_encode($decoded, JSON_PRETTY_PRINT)]);
       return $decoded;
     } 
     catch (Exception $e) {

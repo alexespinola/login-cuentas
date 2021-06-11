@@ -2,7 +2,10 @@
 
 namespace loginCuentas;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use loginCuentas\Http\Middleware\RefreshToken;
+use loginCuentas\Http\Middleware\CheckToken;
 
 class LoginCuentasServiceProvider extends ServiceProvider
 {
@@ -18,6 +21,9 @@ class LoginCuentasServiceProvider extends ServiceProvider
   {
     $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     $this->loadViewsFrom(__DIR__.'/../resources/views', 'loginCuentas');
+    $router = $this->app->make(Router::class);
+    $router->aliasMiddleware('RefreshToken', RefreshToken::class);
+    $router->aliasMiddleware('CheckToken', CheckToken::class);
     
     if ($this->app->runningInConsole()) {
       // Publish views

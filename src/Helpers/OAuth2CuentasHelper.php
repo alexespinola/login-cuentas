@@ -66,21 +66,21 @@ class OAuth2CuentasHelper {
 
   /** Return the user object in the token */
 	public static function user() {
-    $token = json_decode(session('jwtToken'));
+    $token = json_decode(session('decodedToken'));
     return $token->user;
   }
 
 
   /** return the user full-name in the token */
   public static function user_name()  {
-    $token = json_decode(session('jwtToken'));
+    $token = json_decode(session('decodedToken'));
     return $token->user->first_name.' '.$token->user->last_name;
   }
 
 
   /** return true if user is logged_in */
   public static function logged_in() {
-    if(session('jwtToken')) {
+    if(session('decodedToken')) {
       return true;
     }
     else {
@@ -98,7 +98,17 @@ class OAuth2CuentasHelper {
       $newAccessToken = $provider->getAccessToken('refresh_token', [
         'refresh_token' => $existingAccessToken->getRefreshToken()
       ]);
+
+      $token = $newAccessToken->getToken();
+      $key = Config::get('loginCuentas.publicKey');
+      JWT::$leeway = 90;
+      $decodedToken = JWT::decode($token, $key, ['RS256']);
+      //token decodificado
+      session(['decodedToken' => json_encode($decodedToken, JSON_PRETTY_PRINT)]);
+      //token original
       session(['accessToken' => $newAccessToken]);
+      //token para las APIs
+      session(['token' => $token]);
     }
   }
 
