@@ -1,9 +1,9 @@
 ### LoginCuentas
-<b>loginCuentas</b> es una librería que le permite integrar la autenticación de Laravel al sistema de cuentas de de Trenes Argentinos.
+<b>loginCuentas</b> es una librería que le permite integrar la autenticación de Laravel al sistema de cuentas de Trenes Argentinos.
 
 Esta librería genera todas las rutas, vistas, controladores, etc, necesarios para el proceso de autenticación, por lo tanto usted no debe usar el comando que provee Laravel `php artisan make:auth`.
 
-Ademas resolver el proceso de autenticación, esta librería provee:
+Ademas de resolver el proceso de autenticación, esta librería provee:
 - Una interfaz gráfica para la gestión de usuarios
 - Dos middlewares, "CheckToken" y "RefreshToken"  
 
@@ -160,7 +160,7 @@ NOTE que cada usuario tiene un "estado":
 - `No existe en el sistema`: Registrado en cuentas.sofse.gob.ar pero no es su aplicación.  
 - `No asociado a cuentas`: Registrado en la DB de su aplicación pero no en cuentas.sofse.gob.ar. 
 
-NOTE que cuando el usuario no está "Sincronizado" se muestra un botón "Sync" que al presionarlo sincronizará la información del usuario en cuentas.sofse.gob.ar con la la de la DB de su aplicación.
+NOTE que cuando el usuario no está "Sincronizado" se muestra un botón "Sync" que al presionarlo sincronizará la información del usuario en cuentas.sofse.gob.ar con la de la DB de su aplicación.
 
 Es posible que usted quiera embeber la vista de usuarios en el template `app.balde.php` de su aplicación: Para hacerlo solo debe publicar las vistas y reemplazar el valor de la etiqueta `@extends('loginCuentas::template')` del archivo `resources/views/vendor/loginCuentas/users/index.blade.php`
 
