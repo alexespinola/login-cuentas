@@ -38,7 +38,36 @@ publique la config de este paquete con el siguiente comando:
 `php artisan vendor:publish --provider="loginCuentas\LoginCuentasServiceProvider" --tag="config"`
 
 Esto crea un archivo de configuracion en su aplicación: `config/loginCuentas.php`
-En este archivo usted puede definir la URL a donde redirigir despues del login modificando el valor de la clave `'urlRedirectAfterLogin'`.
+En este archivo usted puede definir:
+- La URL a donde redirigir despues del login `'urlRedirectAfterLogin'`.
+- La URL para mostrar la vista SHOW de usuarios `urlShowUser`.
+- La URL para mostrar la vista EDIT del usuarios `urlEditUser`.
+
+La librería no implementa la funcianalidad para editar o ver detalle de un usuario. Usted debe crear un `userController` en su aplicación que haga estas tareas ademas de las vistas y rutas.
+
+##### Middlewares
+Esta librería provee dos middlewares:
+ `RefreshToken`: Para renovar el token de usuario automaticamente cuando este expire.
+ `CheckToken`: Para autenticar peticiones a APIs que exponga su aplicaón.
+
+Usted puede usar estos middlewares tanto en grupos de rutas como en el constructor de sus controladores.
+
+###### En grupos de rutas;
+```php
+Route::group(['middleware' => ['RefreshToken']], function() {
+  Route::get('/home', function () {
+    return view('home');
+  });
+});
+```
+
+
+###### En el constructor de los controladores;
+```php
+public function __construct() {
+    $this->middleware('CheckToken');
+}
+```
 
 ##### Evento UserWasLogged 
 Es probable que usted necesite realizar acciones cuando un usuario se loguea en su aplicacíon como por ejemplo:
