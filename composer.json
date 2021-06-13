@@ -10,7 +10,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
-        "orchestra/testbench": "5.*"
+        "orchestra/testbench": "5.*",
+        "laravel/browser-kit-testing": "^6.2"
     },
     "autoload": {
         "psr-4":{

@@ -1,15 +1,16 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
+use Tests\TestCase;
 
-class TestUnitTest extends TestCase
+class ExampleTest extends TestCase
 {
   /** 
    * @test 
    * para saber que funcion PHPUnit
   */
-  function test_unit_test()
+  function example_test()
   {
     $this->assertTrue(true);
   }
