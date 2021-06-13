@@ -18,4 +18,20 @@ class RoutesTest extends TestCase
     $response->assertStatus(200);
   }
 
+  /**  @test */
+  public function test_login_route()
+  {
+    $response = $this->post('/login');
+    $response->assertStatus(302);
+  }
+
+  
+  /**  @test */
+  public function test_authorize_route()
+  {
+    $response = $this->get('/authorize');
+    $response->assertStatus(302);
+  }
+
+
 }

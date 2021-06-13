@@ -1,4 +1,18 @@
-### ![img](img/logoTrenesArgentinos.png)   LoginCuentas 
+### ![img](img/logoTrenesArgentinos.png)   <h2>LoginCuentas<h2> 
+
+<p align="center">
+  <img src="https://img.shields.io/static/v1?label=php&message=7.2&color=greem">
+  
+  <img src="https://img.shields.io/static/v1?label=Laravel&message=7.x&color=greem">  
+    
+  <a href="https://packagist.org/packages/alexespinola/login-cuentas">
+    <img src="https://img.shields.io/static/v1?label=Stable&message=v1.0.0&color=blue" alt="Latest Stable Version">
+  </a>
+
+  <a href="https://packagist.org/packages/alexespinola/login-cuentas">
+    <img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License">
+  </a>
+</p>
 
 
 <b>loginCuentas</b> es una librería que le permite integrar la autenticación de Laravel al sistema de cuentas de Trenes Argentinos.
